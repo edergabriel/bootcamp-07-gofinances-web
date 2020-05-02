@@ -9,7 +9,7 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 
 import formatValue from '../../utils/formatValue';
-
+import formatDateTime from '../../utils/formatDateTime';
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
 interface Transaction {
@@ -94,9 +94,9 @@ const Dashboard: React.FC = () => {
               {transactions.map(transaction => (
                   <tr key={transaction.id}>
                     <td className="title">{ transaction.title}</td>
-                    <td className={`${transaction.type}`}>{formatValue( Number(transaction.value))}</td>
+                    <td className={`${transaction.type}`}>{transaction.type == 'outcome' ? "-": ""} {formatValue( Number(transaction.value))}</td>
                     <td>{ transaction.category?.title}</td>
-                    <td>{ transaction.created_at}</td>
+                    <td>{ formatDateTime(transaction.created_at)}</td>
                   </tr>
               ))}
             </tbody>
